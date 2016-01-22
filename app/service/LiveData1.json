@@ -1,0 +1,525 @@
+{
+  "status": "OK",
+  "result": [
+    {
+      "count": {
+        "deals": {
+          "type1": 0,
+          "type2": 6,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 0.0,
+          "type2": 1347060.18,
+          "type5": 0.0,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 0.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 0.0
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "ANGOLA"
+      },
+      "partnerType": "DVAR",
+      "timePeriod": {
+        "year": 2014,
+        "quarter": 1
+      },
+      "marketSegment": "ENTERPRISE"
+    },
+    {
+      "count": {
+        "deals": {
+          "type1": 0,
+          "type2": 5,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 1
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 0.0,
+          "type2": 0.0,
+          "type5": 0.0,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 0.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 0.0
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "LUXEMBOURG"
+      },
+      "partnerType": "DVAR",
+      "timePeriod": {
+        "year": 2016,
+        "quarter": 1
+      },
+      "marketSegment": "PUBLIC SECTOR"
+    },
+    {
+      "count": {
+        "deals": {
+          "type1": 0,
+          "type2": 1,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 1
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 0.0,
+          "type2": 9372.21,
+          "type5": 0.0,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 0.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 852.5
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "CYPRUS"
+      },
+      "partnerType": "DVAR",
+      "timePeriod": {
+        "year": 2014,
+        "quarter": 4
+      },
+      "marketSegment": "OTHER"
+    },
+    {
+      "count": {
+        "deals": {
+          "type1": 0,
+          "type2": 2,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 0.0,
+          "type2": 58035.85,
+          "type5": 0.0,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 0.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 0.0
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "PAPUA NEW GUINEA"
+      },
+      "partnerType": "VAR",
+      "timePeriod": {
+        "year": 2014,
+        "quarter": 2
+      },
+      "marketSegment": "SERVICE PROVIDER"
+    },
+    {
+      "count": {
+        "deals": {
+          "type1": 0,
+          "type2": 10,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 0.0,
+          "type2": 116785.51,
+          "type5": 0.0,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 0.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 0.0
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "HONG KONG"
+      },
+      "partnerType": "Not Defined",
+      "timePeriod": {
+        "year": 2014,
+        "quarter": 3
+      },
+      "marketSegment": "COMMERCIAL"
+    },
+    {
+      "count": {
+        "deals": {
+          "type1": 3,
+          "type2": 52,
+          "type5": 5,
+          "type8": 0,
+          "type7": 0,
+          "type3": 4
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 4934346.93,
+          "type2": 18770409.84,
+          "type5": 657380.24,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 382857.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 0.0
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "MEXICO"
+      },
+      "partnerType": "DVAR",
+      "timePeriod": {
+        "year": 2015,
+        "quarter": 1
+      },
+      "marketSegment": "PUBLIC SECTOR"
+    },
+    {
+      "count": {
+        "deals": {
+          "type1": 0,
+          "type2": 4,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 3
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 0.0,
+          "type2": 42700.41,
+          "type5": 0.0,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 0.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 0.0
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "IRELAND"
+      },
+      "partnerType": "DVAR",
+      "timePeriod": {
+        "year": 2016,
+        "quarter": 1
+      },
+      "marketSegment": "SERVICE PROVIDER"
+    },
+    {
+      "count": {
+        "deals": {
+          "type1": 3,
+          "type2": 21,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 64167.14,
+          "type2": 1653674.08,
+          "type5": 0.0,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 0.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 0.0
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "COLOMBIA"
+      },
+      "partnerType": "DVAR",
+      "timePeriod": {
+        "year": 2014,
+        "quarter": 4
+      },
+      "marketSegment": "SERVICE PROVIDER"
+    },
+    {
+      "count": {
+        "deals": {
+          "type1": 0,
+          "type2": 1,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 0.0,
+          "type2": 0.0,
+          "type5": 0.0,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 0.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 0.0
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "USA"
+      },
+      "partnerType": "Not Defined",
+      "timePeriod": {
+        "year": 2014,
+        "quarter": 4
+      },
+      "marketSegment": "SERVICE PROVIDER"
+    },
+    {
+      "count": {
+        "deals": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 0
+        },
+        "quotes": {
+          "type1": 0,
+          "type2": 0,
+          "type5": 0,
+          "type8": 0,
+          "type7": 0,
+          "type3": 4
+        }
+      },
+      "amount": {
+        "currency": "USD",
+        "symbol": "$",
+        "deals": {
+          "type1": 0.0,
+          "type2": 0.0,
+          "type5": 0.0,
+          "type8": 0.0,
+          "type7": 0.0,
+          "type3": 0.0
+        },
+        "quotes": {
+          "type1": {
+            "type1": 0.0,
+            "type2": 0.0,
+            "type5": 0.0,
+            "type8": 0.0,
+            "type7": 0.0,
+            "type3": 245204.14
+          }
+        }
+      },
+      "geography": {
+        "type": "country",
+        "value": "NETHERLANDS ANTILLES"
+      },
+      "partnerType": "DVAR",
+      "timePeriod": {
+        "year": 2015,
+        "quarter": 3
+      },
+      "marketSegment": "OTHER"
+    }
+  ]
+}
