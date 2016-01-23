@@ -13,7 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <div class="horizontal-section-container">
       <div>
         <div class="horizontal-section">
-			<paper-dropdown-menu label="Select Partner Type" on-iron-select="handleSelectionChange" >
+		  <paper-dropdown-menu label="Select Partner Type" on-iron-select="handleSelectionChange" >
 			  <paper-menu class="dropdown-content" selected="{{selectedPartner}}" >
 				<template    is="dom-repeat" items="[[partnerType]]" as="partner">
 					<paper-item>[[partner]]</paper-item>
@@ -21,7 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			  </paper-menu>
 			</paper-dropdown-menu>
 			
-			<paper-dropdown-menu label="Select Year" on-iron-select="handleSelectionChange" >
+			<paper-dropdown-menu label="Select Year" on-iron-select="handleSelectionChange"  >
 			  <paper-menu class="dropdown-content" selected="{{selectedYear}}" >
 				<template    is="dom-repeat" items="[[yearsList]]" as="year">
 					<paper-item>[[year]]</paper-item>
@@ -29,18 +29,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			  </paper-menu>
 			</paper-dropdown-menu>
 			
-			<paper-dropdown-menu label="Select Quarter" on-iron-select="handleSelectionChange" >
+			<paper-dropdown-menu label="Select Quarter" on-iron-select="CreateChart" >
 			  <paper-menu class="dropdown-content" selected="{{selectedQuarter}}" >
 				<template    is="dom-repeat" items="[[quaterList]]" as="quater">
 					<paper-item>[[quater]]</paper-item>
 				</template>
 			  </paper-menu>
 			</paper-dropdown-menu>
-			
-			
         </div>
       </div>
     </div>
+	
+	
+	<div hidden$="{{showChart}}" >
+	
+		<google-chart
+		  type='pie'
+		  options='{"title": "Deals count for the selected quarter"}'
+		  cols='{{chartCols}}'
+		  rows='{{chartrows}}'>
+		</google-chart>
+	
+		  <google-chart
+		  type='bar'
+		  options='{"title": "Deals count for the selected quarter"}'
+		  cols='{{chartCols}}'
+		  rows='{{chartrows}}'>
+		</google-chart>
+	
+	
+	</div>
 	
 
     <iron-ajax 
@@ -51,10 +69,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            on-error="errorHandler"
             ></iron-ajax>
             
-            <google-chart
-              type='pie'
-              options='{"title": "Bar height", "legend": "none"}'
-               data='{{chartData}}'></google-chart>
+	
+            
             
     
            
@@ -72,6 +88,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		      type: Object,
               notify: true
 		   },
+		   showChart:{
+		      type: Boolean,
+              notify: true,
+			  value:true
+		   },
            yearsList: {
             type: Array,
             notify: true
@@ -83,6 +104,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           partnerType: {
             type: Array,
             notify: true
+          },
+		  chartCols: {
+            type: Array,
+            notify: true,
+			value:[ {"label":"Deals Type", "type":"string"}, {"label":"Deals Count", "type":"number"} ]
+          },
+		  chartrows: {
+            type: Array,
+            notify: true,
+			value:[]
           },
 		  chartData: {
             type: Array,
@@ -99,8 +130,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		  selectedQuarter: {
             type: String,
             notify: true
-          }
-          
+          },
+		  masterAjaxData:{
+		      type: Object,
+              notify: true
+		   },
+          parsedData:{
+		      type: Object,
+              notify: true
+		   }
         },
 		handleSelectionChange: function (event) {
 		   if(this.quaterMap[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]]){
@@ -108,8 +146,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		   }else{
 			 this.quaterList=[];
 		   }
+		   if(this.quaterList[this.selectedQuarter]){
+				this.CreateChart();
+		   }
+        },
+		CreateChart: function (event) {
+		     var dealsResult={};
+		     if(this.parsedData[this.partnerType[this.selectedPartner]]){
+				if(this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]]){
+					if(this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]][this.quaterList[this.selectedQuarter]]){
+					   dealsResult=this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]][this.quaterList[this.selectedQuarter]];
+					}
+				}
+			 }else{
+				var filteredResult = this.masterAjaxData.filter(function(obj){
+					if(obj.timePeriod.year == this.yearsList[this.selectedYear] && obj.timePeriod.quarter == this.quaterList[this.selectedQuarter] && obj.partnerType == this.partnerType[this.selectedPartner]  ){
+					 return obj
+				   }
+				}.bind(this));
+				
+				
+				filteredResult.map(function(obj){
+				   for(var key in obj.count.deals){
+					  if(dealsResult[key]){
+						  dealsResult[key]+=obj.count.deals[key];
+					  }else{
+						  dealsResult[key]=obj.count.deals[key];
+					  }
+				   }
+				}.bind(this));
+				
+				if(!this.parsedData[this.partnerType[this.selectedPartner]]){
+				  this.parsedData[this.partnerType[this.selectedPartner]]={};
+				}
+				
+				if(!this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]]){
+				  this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]]={};
+				}
+				
+				if(!this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]][this.quaterList[this.selectedQuarter]]){
+				  this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]][this.quaterList[this.selectedQuarter]] = dealsResult;
+				}
+			 }
+			 
+			 var newdealsResult=[];
+			 for(var key in dealsResult){
+			    newdealsResult.push([key,dealsResult[key]]);
+			 }
+			 
+			 if(newdealsResult.length > 0){
+				this.chartrows=newdealsResult;
+				this.showChart=true;
+			 }else{
+			    this.showChart=false;
+				this.chartrows=[];
+			 }
+			 
         },
         dataLoaded: function (event,request) {
+		    this.parsedData={};
+		    this.masterAjaxData=request.response.result;
 		    this.yearsList=request.response.result.map(function(obj){
 			     return obj.timePeriod.year;
 		    });
