@@ -60,10 +60,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	
 	</div>
 	
+	 <iron-ajax 
+           auto
+           id="ajax" url="/api/config.json" method="get"
+           handle-as="json"
+           on-response="configLoaded"
+           on-error="errorHandler"
+            ></iron-ajax>
+	
 
     <iron-ajax 
-           auto
-           id="ajax" url="../../service/LiveData.json" method="get"
+           id="ajax2" url="" method="get"
            handle-as="json"
            on-response="dataLoaded"
            on-error="errorHandler"
@@ -203,6 +210,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			 }
 			 
         },
+        configLoaded: function (event,request) {
+		     var dataUrl="/api/job-server-"+request.response.serverNumber+"/jobs/"+request.response.sjsJobId;
+			 this.$.ajax2.url = dataUrl;
+			 this.$.ajax2.generateRequest();
+		 },
         dataLoaded: function (event,request) {
 		    this.parsedData={};
 		    this.masterAjaxData=request.response.result;

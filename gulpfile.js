@@ -24,6 +24,8 @@ var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
 var ensureFiles = require('./tasks/ensure-files.js');
+var url = require('url')
+var proxy = require('proxy-middleware');
 
 // var ghPages = require('gulp-gh-pages');
 
@@ -216,6 +218,9 @@ gulp.task('clean', function() {
 
 // Watch files for changes & reload
 gulp.task('serve', ['styles', 'elements'], function() {
+    var proxyOptions = url.parse('http://oprepmon-stg1-01');
+    proxyOptions.route = '/api';
+  
   browserSync({
     port: 5000,
     notify: false,
@@ -234,7 +239,7 @@ gulp.task('serve', ['styles', 'elements'], function() {
     // https: true,
     server: {
       baseDir: ['.tmp', 'app'],
-      middleware: [historyApiFallback()]
+      middleware: [proxy(proxyOptions),historyApiFallback()]
     }
   });
 
