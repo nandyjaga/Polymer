@@ -218,8 +218,16 @@ gulp.task('clean', function() {
 
 // Watch files for changes & reload
 gulp.task('serve', ['styles', 'elements'], function() {
-    var proxyOptions = url.parse('http://oprepmon-stg1-01');
-    proxyOptions.route = '/api';
+    
+	//Sample http://ccwa-csssp-stg-03:8090/jobs/5a93824a-13ac-4cb1-91ec-2977a95112e6
+	var proxyOptions1 = url.parse('http://ccwa-csssp-stg-03:8090');
+    proxyOptions1.route = '/createURL';
+	
+	//Sample http://oprepmon-stg1-01:8080/sjs-data-access/jobs/6c199814-22dd-4055-a60a-1d147bce0cae
+	var proxyOptions2 = url.parse('http://oprepmon-stg1-01:8080/sjs-data-access');
+    proxyOptions2.route = '/api';
+	
+	
   
   browserSync({
     port: 5000,
