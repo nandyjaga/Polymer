@@ -13,26 +13,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <div class="horizontal-section-container">
       <div>
         <div class="horizontal-section">
-		  <paper-dropdown-menu label="Select Partner Type" on-iron-select="handleSelectionChange" >
-			  <paper-menu class="dropdown-content" selected="{{selectedPartner}}" >
-				<template    is="dom-repeat" items="[[partnerType]]" as="partner">
-					<paper-item>[[partner]]</paper-item>
-				</template>
-			  </paper-menu>
-			</paper-dropdown-menu>
-			
 			<paper-dropdown-menu label="Select Year" on-iron-select="handleSelectionChange"  >
 			  <paper-menu class="dropdown-content" selected="{{selectedYear}}" >
 				<template    is="dom-repeat" items="[[yearsList]]" as="year">
 					<paper-item>[[year]]</paper-item>
-				</template>
-			  </paper-menu>
-			</paper-dropdown-menu>
-			
-			<paper-dropdown-menu label="Select Quarter" on-iron-select="CreateChart" >
-			  <paper-menu class="dropdown-content" selected="{{selectedQuarter}}" >
-				<template    is="dom-repeat" items="[[quaterList]]" as="quater">
-					<paper-item>[[quater]]</paper-item>
 				</template>
 			  </paper-menu>
 			</paper-dropdown-menu>
@@ -41,28 +25,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
 	
 	
-	<div hidden$="{{showChart}}" >
-	
+	<div  >
 		<google-chart
-		  type='pie'
-		  options='{"title": "Deals count for the selected quarter"}'
-		  cols='{{chartCols}}'
-		  rows='{{chartrows}}'>
-		</google-chart>
-	
-		  <google-chart
-		  type='bar'
-		  options='{"title": "Deals count for the selected quarter"}'
-		  cols='{{chartCols}}'
-		  rows='{{chartrows}}'>
+			type='column'
+			options='{"title": "Inventory"}'
+			data='{{chartCols}}'>
 		</google-chart>
 	
 	
 	</div>
 	
-	 <iron-ajax 
+	  <iron-ajax 
            auto
-           id="ajax" url="/createURL/jobs/5a93824a-13ac-4cb1-91ec-2977a95112e6" method="get"
+           id="ajax" url="/createURL/jobs/6c199814-22dd-4055-a60a-1d147bce0cae" method="get"
            handle-as="json"
            on-response="configLoaded"
            on-error="errorHandler"
@@ -75,13 +50,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            on-response="dataLoaded"
            on-error="errorHandler"
             ></iron-ajax>
-            
-	
-            
-            
-    
-           
-  </template>
 
   <script>
     (function() {
@@ -89,26 +57,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       
       Polymer({
         is: 'dashboard-page',
-
         properties: {
-		   quaterMap:{
-		      type: Object,
-              notify: true
-		   },
-		   showChart:{
-		      type: Boolean,
-              notify: true,
-			  value:true
-		   },
-           yearsList: {
-            type: Array,
-            notify: true
-          },
-           quaterList: {
-            type: Array,
-            notify: true
-          },
-          partnerType: {
+		   yearsList: {
             type: Array,
             notify: true
           },
@@ -117,135 +67,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             notify: true,
 			value:[ {"label":"Deals Type", "type":"string"}, {"label":"Deals Count", "type":"number"} ]
           },
-		  chartrows: {
-            type: Array,
-            notify: true,
-			value:[]
-          },
-		  chartData: {
-            type: Array,
-            notify: true
-          },
 		  selectedYear: {
             type: String,
             notify: true
           },
-		  selectedPartner: {
-            type: String,
-            notify: true
-          },
-		  selectedQuarter: {
-            type: String,
-            notify: true
-          },
-		  masterAjaxData:{
-		      type: Object,
-              notify: true
-		   },
           parsedData:{
 		      type: Object,
               notify: true
 		   }
         },
 		handleSelectionChange: function (event) {
-		   if(this.quaterMap[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]]){
-		       this.quaterList=this.quaterMap[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]];
-		   }else{
-			 this.quaterList=[];
-		   }
-		   if(this.quaterList[this.selectedQuarter]){
-				this.CreateChart();
-		   }
-        },
-		CreateChart: function (event) {
-		     var dealsResult={};
-		     if(this.parsedData[this.partnerType[this.selectedPartner]]){
-				if(this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]]){
-					if(this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]][this.quaterList[this.selectedQuarter]]){
-					   dealsResult=this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]][this.quaterList[this.selectedQuarter]];
-					}
-				}
-			 }else{
-				var filteredResult = this.masterAjaxData.filter(function(obj){
-					if(obj.timePeriod.year == this.yearsList[this.selectedYear] && obj.timePeriod.quarter == this.quaterList[this.selectedQuarter] && obj.partnerType == this.partnerType[this.selectedPartner]  ){
-					 return obj
-				   }
-				}.bind(this));
-				
-				
-				filteredResult.map(function(obj){
-				   for(var key in obj.count.deals){
-					  if(dealsResult[key]){
-						  dealsResult[key]+=obj.count.deals[key];
-					  }else{
-						  dealsResult[key]=obj.count.deals[key];
-					  }
-				   }
-				}.bind(this));
-				
-				if(!this.parsedData[this.partnerType[this.selectedPartner]]){
-				  this.parsedData[this.partnerType[this.selectedPartner]]={};
-				}
-				
-				if(!this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]]){
-				  this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]]={};
-				}
-				
-				if(!this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]][this.quaterList[this.selectedQuarter]]){
-				  this.parsedData[this.partnerType[this.selectedPartner]][this.yearsList[this.selectedYear]][this.quaterList[this.selectedQuarter]] = dealsResult;
-				}
-			 }
-			 
-			 var newdealsResult=[];
-			 for(var key in dealsResult){
-			    newdealsResult.push([key,dealsResult[key]]);
-			 }
-			 
-			 if(newdealsResult.length > 0){
-				this.chartrows=newdealsResult;
-				this.showChart=true;
-			 }else{
-			    this.showChart=false;
-				this.chartrows=[];
-			 }
-			 
+		  this.chartCols=this.parsedData[this.yearsList[this.selectedYear]];
         },
         configLoaded: function (event,request) {
-		     var dataUrl="/api/job-server-"+request.response.serverNumber+"/jobs/"+request.response.sjsJobId;
+		     var dataURL2 = "/api/jobs/"+request.response.sjsJobId;
 			 this.$.ajax2.url = dataUrl;
 			 this.$.ajax2.generateRequest();
 		 },
         dataLoaded: function (event,request) {
-		    this.parsedData={};
-		    this.masterAjaxData=request.response.result;
-		    this.yearsList=request.response.result.map(function(obj){
-			     return obj.timePeriod.year;
-		    });
-			
+			var month = new Array();
+				month[0] = "January";
+				month[1] = "February";
+				month[2] = "March";
+				month[3] = "April";
+				month[4] = "May";
+				month[5] = "June";
+				month[6] = "July";
+				month[7] = "August";
+				month[8] = "September";
+				month[9] = "October";
+				month[10] = "November";
+				month[11] = "December";
+				
+		    this.yearsList=request.response.result.data.map(function(obj){return parseInt(obj[0])}).sort();
 			this.yearsList=this.yearsList.filter(function(elem, pos) {
 			  return this.yearsList.indexOf(elem) == pos;
 			}.bind(this)).sort();
-			
-			 this.partnerType=request.response.result.map(function(obj){
-			     return obj.partnerType;
-		    });
-			
-			this.partnerType=this.partnerType.filter(function(elem, pos) {
-			  return this.partnerType.indexOf(elem) == pos;
-			}.bind(this)).sort();
-			
-			this.quaterMap={}
-			for(var i=0;i<this.partnerType.length;i++){
-				this.quaterMap[this.partnerType[i]]={};
-				for(var k=0;k<this.yearsList.length;k++){
-				    this.quaterMap[this.partnerType[i]][this.yearsList[k]]=request.response.result.filter(function(obj){
-																				   return obj.partnerType===this.partnerType[i] && obj.timePeriod.year===this.yearsList[i]
-																			}.bind(this));
-					this.quaterMap[this.partnerType[i]][this.yearsList[k]]=this.quaterMap[this.partnerType[i]][this.yearsList[k]].map(function(obj){return obj.timePeriod.quarter}.bind(this));
-					this.quaterMap[this.partnerType[i]][this.yearsList[k]]=this.quaterMap[this.partnerType[i]][this.yearsList[k]].filter(function(elem, pos) {
-																						  return this.quaterMap[this.partnerType[i]][this.yearsList[k]].indexOf(elem) == pos;
-																						}.bind(this)).sort();
-				}
+			this.parsedData={};
+			for(var i=0;i<this.yearsList.length;i++){
+				this.parsedData[this.yearsList[i]] = request.response.result.data.filter(function(obj){if(parseInt(obj[0]) === this.yearsList[i]){ return obj }}.bind(this)).map(function(obj){return [month[parseInt(obj[1])-1],obj[2],obj[3]]}.bind(this))
+				this.parsedData[this.yearsList[i]].splice(0, 0, ['Created Month','Deal Count','Deal Worth']);
 			}
         },
         errorHandler: function (event,detl) {

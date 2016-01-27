@@ -221,11 +221,11 @@ gulp.task('serve', ['styles', 'elements'], function() {
     
 	//Sample http://ccwa-csssp-stg-03:8090/jobs/5a93824a-13ac-4cb1-91ec-2977a95112e6
 	var proxyOptions1 = url.parse('http://ccwa-csssp-stg-03:8090');
-    proxyOptions1.route = '/createURL';
+    proxyOptions1.route = '/api';
 	
 	//Sample http://oprepmon-stg1-01:8080/sjs-data-access/jobs/6c199814-22dd-4055-a60a-1d147bce0cae
 	var proxyOptions2 = url.parse('http://oprepmon-stg1-01:8080/sjs-data-access');
-    proxyOptions2.route = '/api';
+    proxyOptions2.route = '/createURL';
 	
 	
   
@@ -247,7 +247,7 @@ gulp.task('serve', ['styles', 'elements'], function() {
     // https: true,
     server: {
       baseDir: ['.tmp', 'app'],
-      middleware: [proxy(proxyOptions),historyApiFallback()]
+      middleware: [proxy(proxyOptions1),proxy(proxyOptions2),historyApiFallback()]
     }
   });
 
