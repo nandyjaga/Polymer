@@ -24,24 +24,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
     </div>
 	
-	
-	<div  >
-		<google-chart
-			type='column'
-			options='{"title": "Inventory"}'
-			data='{{chartCols}}'>
-		</google-chart>
-	
-	
-	</div>
-	
-	  <iron-ajax 
+	<div class="horizontal layout demo">
+    	 <div class="flex-1">
+			<google-chart
+				type='column'
+				options='{"title": "Deal Worth"}'
+				data='{{chartColsWorth}}'>
+			</google-chart>
+		  </div>
+		  <div class="flex-1">
+			<google-chart
+				type='pie'
+				options='{"title": "Deal Worth"}'
+				data='{{chartColsWorth}}'>
+			</google-chart>
+		  </div>
+    </div>
+	<div class="horizontal layout demo">
+    	  <div class="flex-1">
+			<google-chart
+				type='scatter'
+				options='{"title": "Deal Count"}'
+				data='{{chartColsCount}}'>
+			</google-chart>
+		  </div>
+		  <div class="flex-1">
+			<google-chart
+				type='line'
+				options='{"title": "Deal Count"}'
+				data='{{chartColsCount}}'>
+			</google-chart>
+		  </div>
+    </div>
+	 <iron-ajax 
+           auto
+           id="ajax" url="/service/data2.json" method="get"
+           handle-as="json"
+           on-response="krishnaLoadedData"
+           on-error="errorHandler"
+            ></iron-ajax>
+	<!--iron-ajax 
            auto
            id="ajax" url="/createURL/jobs/6c199814-22dd-4055-a60a-1d147bce0cae" method="get"
            handle-as="json"
-           on-response="configLoaded"
+           on-response="krishnaLoadedData"
            on-error="errorHandler"
-            ></iron-ajax>
+            ></iron-ajax-->		
 	
 
     <iron-ajax 
@@ -50,6 +78,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            on-response="dataLoaded"
            on-error="errorHandler"
             ></iron-ajax>
+			
+
+  </template>
 
   <script>
     (function() {
@@ -62,57 +93,73 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Array,
             notify: true
           },
-		  chartCols: {
+		  chartColsWorth: {
             type: Array,
             notify: true,
-			value:[ {"label":"Deals Type", "type":"string"}, {"label":"Deals Count", "type":"number"} ]
+			value:[ {"label":"Deals Type", "type":"string"}, {"label":"Deals Worth", "type":"number"} ]
+          },
+		  chartColsCount: {
+            type: Array,
+            notify: true,
+			value:[ {"label":"Deals Type", "type":"string"}, {"label":"Deals COunt", "type":"number"} ]
           },
 		  selectedYear: {
             type: String,
             notify: true
           },
-          parsedData:{
+          parsedDataWorth:{
+		      type: Object,
+              notify: true
+		   },
+          parsedDataCount:{
 		      type: Object,
               notify: true
 		   }
         },
 		handleSelectionChange: function (event) {
-		  this.chartCols=this.parsedData[this.yearsList[this.selectedYear]];
+		  this.chartColsWorth=this.parsedDataWorth[this.yearsList[this.selectedYear]];
+		  this.chartColsCount=this.parsedDataCount[this.yearsList[this.selectedYear]];
+		  
         },
-        configLoaded: function (event,request) {
-		     var dataURL2 = "/api/jobs/"+request.response.sjsJobId;
+        krishnaLoadedData: function (event,request) {
+		     //var dataUrl="/dataURL/job-server-3/jobs/"+request.response.sjsJobId;
+			 //var dataUrl="/dataURL";
+			var dataUrl="/service/data2.json"
 			 this.$.ajax2.url = dataUrl;
 			 this.$.ajax2.generateRequest();
 		 },
         dataLoaded: function (event,request) {
 			var month = new Array();
-				month[0] = "January";
-				month[1] = "February";
-				month[2] = "March";
-				month[3] = "April";
-				month[4] = "May";
-				month[5] = "June";
-				month[6] = "July";
-				month[7] = "August";
-				month[8] = "September";
-				month[9] = "October";
-				month[10] = "November";
-				month[11] = "December";
-				
+			month[0] = "January";
+			month[1] = "February";
+			month[2] = "March";
+			month[3] = "April";
+			month[4] = "May";
+			month[5] = "June";
+			month[6] = "July";
+			month[7] = "August";
+			month[8] = "September";
+			month[9] = "October";
+			month[10] = "November";
+			month[11] = "December";
+			
 		    this.yearsList=request.response.result.data.map(function(obj){return parseInt(obj[0])}).sort();
 			this.yearsList=this.yearsList.filter(function(elem, pos) {
 			  return this.yearsList.indexOf(elem) == pos;
 			}.bind(this)).sort();
-			this.parsedData={};
+			this.parsedDataWorth={};
+			this.parsedDataCount={};
 			for(var i=0;i<this.yearsList.length;i++){
-				this.parsedData[this.yearsList[i]] = request.response.result.data.filter(function(obj){if(parseInt(obj[0]) === this.yearsList[i]){ return obj }}.bind(this)).map(function(obj){return [month[parseInt(obj[1])-1],obj[2],obj[3]]}.bind(this))
-				this.parsedData[this.yearsList[i]].splice(0, 0, ['Created Month','Deal Count','Deal Worth']);
+				this.parsedDataWorth[this.yearsList[i]] = request.response.result.data.filter(function(obj){if(parseInt(obj[0]) === this.yearsList[i]){ return obj }}.bind(this)).map(function(obj){return [month[parseInt(obj[1])-1],obj[3]]}.bind(this))
+				this.parsedDataCount[this.yearsList[i]] = request.response.result.data.filter(function(obj){if(parseInt(obj[0]) === this.yearsList[i]){ return obj }}.bind(this)).map(function(obj){return [month[parseInt(obj[1])-1],obj[2]]}.bind(this))
+				this.parsedDataWorth[this.yearsList[i]].splice(0, 0, ['Created Month','Deal Worth']);
+				this.parsedDataCount[this.yearsList[i]].splice(0, 0, ['Created Month','Deal Count']);
 			}
         },
         errorHandler: function (event,detl) {
             alert("Error :"+ detl.error);
             
-          }
+         }
       });
     })();
   </script>
